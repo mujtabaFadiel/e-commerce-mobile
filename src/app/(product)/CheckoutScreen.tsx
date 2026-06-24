@@ -12,43 +12,42 @@ export default function CheckoutScreen() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
 
-
   const params = useLocalSearchParams();
   const subtotal = Number(params.subtotal || 0);
   const shipping = Number(params.shipping || 0);
   const tax = Number(params.tax || 0);
   const total = Number(params.total || 0);
 
-  const handlePlaceOrder = async () => {
+  const handelCheckout = async () => {
     setLoading(true)
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000))
-      await SecureStore.setItemAsync('cart', JSON.stringify([]))
-      Alert.alert("Success", "Your order has been placed successfully!")
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setLoading(false)
-    }
-  }
+      const getItems: any = await SecureStore.getItemAsync('cart')
+      const items = getItems ? JSON.parse(getItems) : []
 
-  const handelCheckout = async () => {
+      if (items.length === 0) {
+        Alert.alert("Error", "Your cart is empty");
+        setLoading(false);
+        return;
+      }
 
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    const getItems: any = await SecureStore.getItemAsync('cart')
-    const items = JSON.parse(getItems)
+      const formattedItems = items.map((i: any) => ({ 
+        productId: Number(i.product?.id || i.productId || i.id), 
+        quantity: Number(i.quantity || 1) 
+      }));
 
-    try {
       const orderRes = await api.post('/orders', {
-        items: items.map((i: any) => ({ productId: i.id, quantity: i.quantity }))
+        items: formattedItems
       })
+
       await SecureStore.setItemAsync('cart', JSON.stringify([]))
 
       await api.post('/payments', {
         orderId: orderRes.data.id
       })
 
-      Alert.alert("Success", "Your order has been placed successfully!")
+      Alert.alert("Success", "Your order has been placed successfully!", [
+        { text: "OK", onPress: () => router.replace('/(tabs)') } 
+      ])
     } catch (error: any) {
       const serverMessage = error.response?.data?.message;
 
@@ -57,9 +56,10 @@ export default function CheckoutScreen() {
         finalMessage = Array.isArray(serverMessage) ? serverMessage.join("\n") : serverMessage;
       }
 
-      Alert.alert('❌ Error Details', finalMessage);
+      Alert.alert('Error Details', finalMessage);
+      console.log(finalMessage)
     } finally {
-
+      setLoading(false) 
     }
   }
 
@@ -77,18 +77,6 @@ export default function CheckoutScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        {/**<View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>Shipping Address</Text>
-          <View style={styles.card}>
-            <View style={styles.cardHeader}>
-              <Ionicons name="location-sharp" size={20} color={colors.primary.DEFAULT} />
-              <Text style={styles.cardTitle}>Home Address</Text>
-            </View>
-            <Text style={styles.cardBody}>123 Main Street, Apt 4B</Text>
-            <Text style={styles.cardBody}>New York, NY 10001</Text>
-          </View>
-        </View>**/}
-
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Payment Method</Text>
           <View style={styles.card}>
@@ -99,7 +87,6 @@ export default function CheckoutScreen() {
             <Text style={styles.cardBody}>•••• •••• •••• 4242</Text>
           </View>
         </View>
-
 
         <OrderSummary
           shipping={shipping}

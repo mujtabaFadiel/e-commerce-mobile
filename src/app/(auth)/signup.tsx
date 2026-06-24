@@ -22,12 +22,13 @@ const Signup = () => {
   const route = useRouter()
 
   const handleSubmit = async () => {
-    setIsLoading(true)
-    if (!username || !email || !password) {
+    if (!username.trim() || !email.trim() || !password.trim()) {
       Alert.alert('Validation Error', 'Please fill in all fields');
       return;
     }
 
+    setIsLoading(true)
+    
     try {
       const response = await api.post('/users/register', {
         username: username,
@@ -38,8 +39,7 @@ const Signup = () => {
       route.replace('/(auth)/login')
 
     } catch (error: any) {
-      setIsLoading(true)
-      console.log("Axios Error Object:", JSON.stringify(error, null, 2));
+      console.log("Axios Error Object:", error);
 
       if (error.response) {
         console.log("Server Error Data:", error.response.data);
@@ -63,7 +63,8 @@ const Signup = () => {
         console.log('Error Message:', error.message);
         Alert.alert('Error', error.message);
       }
-      setIsLoading(false)
+    } finally {
+      setIsLoading(false);
     }
   }
 

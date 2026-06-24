@@ -24,7 +24,7 @@ const Login = () => {
     const handleSubmit = async () => {
         setIsLoading(true)
         try {
-            if (!email || !password) {
+            if (!email.trim() || !password.trim()) {
                 Alert.alert('Validation Error', 'Please fill in all fields');
                 return;
             }
@@ -41,7 +41,7 @@ const Login = () => {
             router.replace('/(tabs)')
         }
         catch (error: any) {
-            console.log("Axios Error Object:", JSON.stringify(error, null, 2));
+            console.log("Axios Error Object:", error);
 
             if (error.response) {
                 console.log("Server Error Data:", error.response.data);
@@ -65,7 +65,8 @@ const Login = () => {
                 console.log('Error Message:', error.message);
                 Alert.alert('Error', error.message);
             }
-            setIsLoading(false)
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -136,7 +137,7 @@ const Login = () => {
                             {isLoading ? 'Logging in...' : 'Login'}
                         </Text>
                     </TouchableOpacity>) : (
-                        <ActivityIndicator color={'#222'} size={'large'}/>
+                        <ActivityIndicator color={'#222'} size={'large'} />
                     )}
 
                     {/* Divider */}
@@ -169,9 +170,10 @@ const Login = () => {
 export default Login
 
 const styles = StyleSheet.create({
-    root: { flex: 1, 
+    root: {
+        flex: 1,
         //backgroundColor: DARK 
-        backgroundColor: colors.background.DEFAULT   
+        backgroundColor: colors.background.DEFAULT
     },
     header: { paddingHorizontal: 28, paddingTop: 64, paddingBottom: 40 },
     iconBox: {

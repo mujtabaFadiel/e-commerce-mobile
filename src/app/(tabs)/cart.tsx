@@ -137,7 +137,6 @@ const CartScreen = () => {
       >
         <View style={styles.itemsWrapper}>
           {cartItems.map((item: any) => {
-
             const isItemDisabled = item.quantity >= item.stock
             const isItemDisabled2 = item.quantity <= 0
 

@@ -71,7 +71,7 @@ const ProductDetailScreen = () => {
                 currentCart[existingIndex].quantity = quantity;
             } else {
                 currentCart.push({
-                    id: product.id,
+                    id: Number(product.id),
                     name: product.name,
                     price: product.price,
                     image: product.image,
