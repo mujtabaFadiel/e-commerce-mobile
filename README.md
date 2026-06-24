@@ -95,11 +95,11 @@ e-commerce/
 
 
 ```env
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=postgres
-DB_PASS=your_password
-DB_NAME=ecommerceApp
-JWT_SECRET=your_jwt_secret
+DB_HOST=
+DB_PORT=
+DB_USER=
+DB_PASS=
+DB_NAME=
+JWT_SECRET=
 ```
 
