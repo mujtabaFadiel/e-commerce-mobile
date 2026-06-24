@@ -1,56 +1,105 @@
-# Welcome to your Expo app 👋
+<img width="450" height="1000" alt="e9598fc2-a4d5-4ce4-8966-e7b459d75790" src="https://github.com/user-attachments/assets/b1352d82-a43b-4ba1-8cd8-ad359c41c5b3" /><img width="450" height="1000" alt="c2686967-0c09-485a-84ed-d3da34a662ac" src="https://github.com/user-attachments/assets/506d3685-5345-4cb2-bc97-da1ea91d7d8b" /><img width="450" height="1000" alt="87e613ba-8490-4157-8038-cfe00bf34908" src="https://github.com/user-attachments/assets/a9a1a00e-6650-47b8-a5d7-223233083800" /><img width="450" height="1000" alt="09ca0660-86e1-4869-963e-69a853ea6aea" src="https://github.com/user-attachments/assets/0db8ac42-f7a6-4db8-9757-e8f4ceca8f12" />#  E-Commerce App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A full-stack e-commerce application built with **NestJS** (Backend) and **React Native** (Mobile), JWT authentication, role-based access control, and Stripe mock payments.
 
-## Get started
+---
 
-1. Install dependencies
+## Author
 
-   ```bash
-   npm install
-   ```
+**Mujtaba Fadiel**
+GitHub: [@MujtabaFadiel](https://github.com/MujtabaFadiel)
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+##  Screenshots
 
-In the output, you'll find options to open the app in a
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+   <img width="150" height="1000" alt="0f3d85f0-2c70-4dbd-b4b5-4e9e8111ef41" src="https://github.com/user-attachments/assets/6b4c31d7-6769-4f59-aa43-702705d89dd9" />
+<img width="150" height="1000" alt="3b03af7e-648b-47e5-baa4-01c824cd7f7c" src="https://github.com/user-attachments/assets/86e30a14-7024-4aec-8bb2-c0f78236fb55" />
+<img width="150" height="1000" alt="e9598fc2-a4d5-4ce4-8966-e7b459d75790" src="https://github.com/user-attachments/assets/3a3f17ce-6190-4f99-a26f-bd6a16ccabde" />
+<img width="150" height="1000" alt="c2686967-0c09-485a-84ed-d3da34a662ac" src="https://github.com/user-attachments/assets/1d1d5ed0-cee5-4ea6-a1ec-c4d77c16bb53" />
+<img width="150" height="1000" alt="87e613ba-8490-4157-8038-cfe00bf34908" src="https://github.com/user-attachments/assets/00868bbb-25ef-42ef-8230-35e8d0b1de83" />
+<img width="150" height="1000" alt="09ca0660-86e1-4869-963e-69a853ea6aea" src="https://github.com/user-attachments/assets/074644bc-d3a8-4674-a579-e8ac93a0bf63" />
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
 
-When you're ready, run:
+</div>
 
-```bash
-npm run reset-project
+---
+
+##  Features
+
+### Mobile (React Native)
+- Authentication (Login / Register)
+- Product listing with search & category filter
+- Product detail with quantity selector
+- Cart management (add, remove, update quantity)
+- Checkout with order confirmation
+- Order history
+- User profile & logout
+
+### Backend (NestJS)
+- JWT Authentication with role-based access (Admin / User)
+- Products CRUD with search & pagination
+- Categories management
+- Orders management with stock tracking
+- Stripe mock payment integration
+- Swagger API documentation
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Mobile | React Native + TypeScript |
+| State Management | Zustand |
+| HTTP Client | Axios |
+| Backend | NestJS + TypeScript |
+| Database | PostgreSQL |
+| ORM | TypeORM |
+| Authentication | JWT + Passport |
+| Payment | Stripe Mock |
+| API Docs | Swagger |
+
+---
+
+## Project Structure
+
+```
+e-commerce/
+├── ecommerce-backend/          # NestJS Backend
+│   └── src/
+│       ├── auth/               # JWT + Guards
+│       ├── users/              # User management
+│       ├── products/           # Products CRUD
+│       ├── categories/         # Categories
+│       ├── orders/             # Orders + stock
+│       └── payments/           # Stripe mock
+│
+└── EcommerceApp/               # React Native Mobile
+    └── src/
+        ├── api/                # Axios instance
+        ├── store/              # Zustand stores
+        ├── screens/            # App screens
+        │   ├── Auth/
+        │   ├── Products/
+        │   ├── Cart/
+        │   └── Orders/
+        └── navigation/         # React Navigation
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-### Other setup steps
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
 
-## Learn more
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASS=your_password
+DB_NAME=ecommerceApp
+JWT_SECRET=your_jwt_secret
+```
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
